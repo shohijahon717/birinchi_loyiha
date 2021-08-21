@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ article.title }}
+{% endblock title %}
+
+{% block content %}
+<div class='card mb-3'>
+    <div class='card-header'>
+        <span class='font-weight-bold'><a href="{% url 'article_list' %}">{{ article.title }}</a></span>
+        <br>
+        <span class='text-muted'>{{ article.author }} tomonidan yozildi | vaqt: {{ article.date }}</span>
+        <span class></span>
+    </div>
+    {% if article.photo %}
+        <a href="{% url 'article_list' %}"><img src="{{ article.photo.url }}" alt="article.title" width="800" height="500" ></a>
+    {% endif %}
+
+    <div class='card-body'>
+        <p>{{ article.body }} 
+           
+        </p>
+    </div>
+    <a class="btn btn-success" type="button" href="{% url 'add_comment_to_post' pk=article.pk %}">Izoh qo'shish</a>
+    <div class='card-header'>
+        
+        {% for comment in article.comments.all %}
+            {% if user.is_authenticated %}
+            <div class="comment">
+                <div class="date">
+                    {{ comment.created_date }} 
+                </div>
+                <strong>{{ comment.author }}</strong>
+                <p>{{ comment.text|linebreaks }}</p>
+            </div>
+            {% endif %}
+        {% empty %}
+            <p>Izohlar yo'q, Siz birinchi bo'lishingiz mumkin&#128519;</p>
+        {% endfor %}
+
+    </div>
+    <div class='card-footer text-center text-muted'>
+        {% if user.is_superuser %}
+            <a href="{% url 'article_edit' article.pk %}" class='btn btn-success'>Tahrirlash</a>
+            <a href="{% url 'article_delete' article.pk %}" class='btn btn-danger'>O'chirish</a>
+        {% endif %}
+        <br><br><br>
+        <h2><a href="{% url 'article_list' %}">Barcha maqolalarni ko'rish</a></h2>
+    </div>
+
+</div> 
+
+{% endblock content %}

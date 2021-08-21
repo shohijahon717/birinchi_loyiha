@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Bosh sahifa
+{% endblock title %}
+
+{% block content %}
+<div class='jumbotron text-center'>
+    <h1 class='display4'>Yangiliklar sayti</h1>
+    <p>Eng tezkor yangiliklar bizning saytimizda</p>
+    <p class='lead'>
+        <a href="{% url 'article_list' %}" class= 'btn btn-primary btn-lg' role='button'>
+            Barcha maqolalarni ko'rish 
+        </a>
+    </p>
+</div>
+
+{% endblock content %}

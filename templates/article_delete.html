@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ article.title }} ni o'chirish
+{% endblock title %}
+
+{% block content %}
+<h1>Maqolani o'chirish</h1>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-danger ml-2">O'chirish</button>
+
+</form>
+{% endblock content %}

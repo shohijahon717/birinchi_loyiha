@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Maqola qo'shish
+{% endblock title %}
+
+{% block content %}
+<h1 class = 'text-success'>Yangi maqola qo'shish</h1>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Saqlash</button>
+
+</form>
+{% endblock content %}

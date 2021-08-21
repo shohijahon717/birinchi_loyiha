@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Qidiruv
+{% endblock title %}
+
+{% block content %}
+
+<center>
+    <h1>Qidiruv...</h1>
+    {% if qidirilayotgan %}
+        <h3>Siz {{ qidirilayotgan }} ni qidiryapsiz!</h3>
+        {% if topilmalar %}
+            <h3>So'rov bo'yicha {{ topilmalar.count }} ta maqola topildi </h3>
+            {% for i in topilmalar %}
+            <div class='card mb-3'>
+                <div class='card-header'>
+                    <span class='font-weight-bold'><a href="{% url 'article_detail' i.pk %}">{{ i.title }}</a></span>
+                    <br>
+                    <span class='text-muted'>{{ i.author }} tomonidan yozildi | vaqt: {{ i.date }}</span>
+                    <span class></span>
+                </div>
+                {% if i.photo %}
+                    <a href="{% url 'article_detail' i.pk %}"><img src="{{ i.photo.url }}" alt="i.title" width="700" height="400" ></a>
+                {% endif %}
+            
+                <div class='card-body'>
+                    <p>{{ i.body | slice:":100" }} 
+                        <a href="{% url 'article_detail' i.pk %}">batafsil bu yerda...
+                        </a>
+                    </p>
+                </div>
+                <div class='card-footer text-center text-muted'>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'article_edit' i.pk %}" class='btn btn-success'>Tahrirlash</a>
+                        <a href="{% url 'article_delete' i.pk %}" class='btn btn-danger'>O'chirish</a>
+                    {% endif %}
+                </div>
+            
+            </div> 
+            {% endfor %}
+        {% else %}
+            <h3>Topilmadi</h3>
+        {% endif %}
+    {% else %}
+        <h3>Qidiruv yo'q</h3>
+    {% endif %}
+</center>
+{% endblock content %}
+
+
+
+
+

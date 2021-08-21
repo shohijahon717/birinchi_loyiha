@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{{ article.title }} ni tahrirlash
+{% endblock title %}
+
+{% block content %}
+<h1>Maqolani tahrirlash</h1>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form | crispy  }}
+    <button type="submit" class="btn btn-info ml-2">Tahrirlash</button>
+</form>
+{% endblock content %}

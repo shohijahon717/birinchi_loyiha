@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Barcha maqolalar shu yerda
+{% endblock title %}
+
+{% block content %}
+{% for i in object_list %}
+<div class='card mb-3'>
+    <div class='card-header'>
+        <span class='font-weight-bold'><a href="{% url 'article_detail' i.pk %}">{{ i.title }}</a></span>
+        <br>
+        <span class='text-muted'>{{ i.author }} tomonidan yozildi | vaqt: {{ i.date }}</span>
+        <span class></span>
+    </div>
+    {% if i.photo %}
+        <a href="{% url 'article_detail' i.pk %}"><img src="{{ i.photo.url }}" alt="i.title" width="700" height="400" ></a>
+    {% endif %}
+
+    <div class='card-body'>
+        <p>{{ i.body | slice:":100" }} 
+            
+            <a href="{% url 'article_detail' i.pk %}">batafsil bu yerda...
+            </a>
+        </p>
+       
+        <p><a href="{% url 'article_detail' i.pk %}">Izohlar: {{ i.comments.count }} ta</a></p> 
+        
+    <div class='card-footer text-center text-muted'>
+        {% if user.is_superuser %}
+            <a href="{% url 'article_edit' i.pk %}" class='btn btn-success'>Tahrirlash</a>
+            <a href="{% url 'article_delete' i.pk %}" class='btn btn-danger'>O'chirish</a>
+        {% endif %}
+    </div>
+
+</div>
+{% endfor %}
+
+{% endblock content %}
