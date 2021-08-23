@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags  %}
 
 {% block title %}
 Maqola qo'shish
@@ -7,7 +8,7 @@ Maqola qo'shish
 {% block content %}
 <h1 class = 'text-success'>Yangi maqola qo'shish</h1>
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form | crispy }}
     <button type="submit" class="btn btn-primary">Saqlash</button>
 
 </form>

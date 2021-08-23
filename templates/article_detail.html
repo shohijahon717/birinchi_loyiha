@@ -7,13 +7,13 @@
 {% block content %}
 <div class='card mb-3'>
     <div class='card-header'>
-        <span class='font-weight-bold'><a href="{% url 'article_list' %}">{{ article.title }}</a></span>
+        <span class='font-weight-bold'><a href="{% url 'article_list' %}"><h2>{{ article.title }}</h2></a></span>
         <br>
-        <span class='text-muted'>{{ article.author }} tomonidan yozildi | vaqt: {{ article.date }}</span>
+        <span class='text-muted'>{{ article.author }} tomonidan yozildi | vaqt: {{ article.date }} ko'rildi&#128580;: {{article.blog_view}}</span>
         <span class></span>
     </div>
     {% if article.photo %}
-        <a href="{% url 'article_list' %}"><img src="{{ article.photo.url }}" alt="article.title" width="800" height="500" ></a>
+        <a href="{% url 'article_list' %}"><img src="{{ article.photo.url }}" class="img-fluid" alt="Responsive image"  ></a>
     {% endif %}
 
     <div class='card-body'>

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}
 Izohlar
 {% endblock title %}
@@ -7,7 +8,7 @@ Izohlar
 <h1>Izohlar qo'shishingiz mumkin</h1>
 
 <form method="POST" class="post-form">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <button type="submit" class="save btn btn-default">Yuborish</button>
 </form>
 {% endblock content %}

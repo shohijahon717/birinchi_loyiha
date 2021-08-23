@@ -8,13 +8,13 @@ Barcha maqolalar shu yerda
 {% for i in object_list %}
 <div class='card mb-3'>
     <div class='card-header'>
-        <span class='font-weight-bold'><a href="{% url 'article_detail' i.pk %}">{{ i.title }}</a></span>
+        <h2><span class='font-weight-bold'><a href="{% url 'article_detail' i.pk %}">{{ i.title }}</a></span></h2>
         <br>
-        <span class='text-muted'>{{ i.author }} tomonidan yozildi | vaqt: {{ i.date }}</span>
+        <span class='text-muted'>{{ i.author }} tomonidan yozildi | vaqt: {{ i.date }} ko'rildi&#128580;: {{ i.blog_view }}</span>
         <span class></span>
     </div>
     {% if i.photo %}
-        <a href="{% url 'article_detail' i.pk %}"><img src="{{ i.photo.url }}" alt="i.title" width="700" height="400" ></a>
+        <a href="{% url 'article_detail' i.pk %}"><img src="{{ i.photo.url }}" class="img-fluid" alt="Responsive image" ></a>
     {% endif %}
 
     <div class='card-body'>

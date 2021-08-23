@@ -15,7 +15,7 @@ Qidiruv
             {% for i in topilmalar %}
             <div class='card mb-3'>
                 <div class='card-header'>
-                    <span class='font-weight-bold'><a href="{% url 'article_detail' i.pk %}">{{ i.title }}</a></span>
+                    <span class='font-weight-bold'><a href="{% url 'article_detail' i.pk %}"><h2>{{ i.title }}</h2></a></span>
                     <br>
                     <span class='text-muted'>{{ i.author }} tomonidan yozildi | vaqt: {{ i.date }}</span>
                     <span class></span>

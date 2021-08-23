@@ -1,24 +1,33 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin #UserPassesTestMixin maqolani yozgan odam boshqarishi un # ruxsatnomalar uchun
 
 from django.shortcuts import get_object_or_404, redirect, render # yangi qo'shildi
-from django.contrib.auth.decorators import login_required # yangi qo'shildi
-from .models import Article, Comment
+
+from .models import Article
 from django.views.generic import *
 from django.urls import reverse_lazy
 from .forms import CommentForm
+from django.contrib.auth.decorators import login_required
+# from .forms import CommentForm
 
 
 # Create your views here.
+
 
 class ArticleListView(ListView):
     model = Article
     template_name = 'article_list.html'
     ordering = ['-id']
 
-class ArticleDetailView(LoginRequiredMixin, DetailView):
+class ArticleDetailView(DetailView):
     model = Article
     template_name = 'article_detail.html'
-    login_url = 'login' # login sahifasiga o'tishi uchun
+    def get_object(self):
+        obj = super().get_object()
+        obj.blog_view += 1
+        obj.save()
+        return obj
+
+    
     
 class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Article
@@ -73,17 +82,17 @@ def searchpage(request):
 
 
 
-
-
-def add_comment_to_post(request, pk):
+@login_required(login_url='login')
+def add_comment_to_post(request,pk):
     post = get_object_or_404(Article, pk=pk)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.author = request.user
             comment.post = post
             comment.save()
-            return redirect('article_detail', pk=post.pk)
+        return redirect('article_detail', pk=post.pk)
             
     else:
         form = CommentForm()
